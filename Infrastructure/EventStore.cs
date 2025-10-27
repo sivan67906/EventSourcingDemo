@@ -1,4 +1,4 @@
-using EventSourcingDemo.Domain.Events;
+﻿using EventSourcingDemo.Domain.Events;
 
 namespace EventSourcingDemo.Infrastructure;
 
@@ -81,11 +81,11 @@ public class InMemoryEventStore : IEventStore
         lock (_lock)
         {
             var allEvents = _events.Values
-                .SelectMany(e => e)
-                .OrderBy(e => e.OccurredAt)
-                .ThenBy(e => e.Version);
-            
-            return Task.FromResult(allEvents);
+                            .SelectMany(e => e)
+                            .OrderBy(e => e.OccurredAt)
+                            .ThenBy(e => e.Version)
+                            .AsEnumerable();
+             return Task.FromResult(allEvents);
         }
     }
     
